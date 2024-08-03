@@ -1,0 +1,88 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.watch-widget {
+  max-width: 900px;
+  margin: 50px auto
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: end;
+  margin-bottom: 30px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.watches-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.watch-container {
+  width: 100px;
+  text-align: center;
+}
+
+.watch{
+  height: 100px;
+  width: 120px;
+  position: relative;
+}
+
+.clockFace {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+  border-radius: 50%;
+  position: relative;
+}
+
+.hour {
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  height: 40px;
+  width: 0;
+  border: 1px solid black;
+  transform-origin: 0px 40px;
+}
+
+.minutes{
+  position: absolute;
+  left: 50px;
+  height: 50px;
+  width: 0;
+  border: 1px solid black;
+  transform-origin: 0px 50px;
+}
+
+.second {
+  position: absolute;
+  left: 50px;
+  height: 50px;
+  width: 0;
+  border: 1px solid red;
+  transform-origin: 0px 50px;
+}
+
+.close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+}
