@@ -3,52 +3,36 @@ import { useEffect } from 'react';
 
 export default function Watch( props ) {
     
-    const {watch} = props;
-    const [hour, setHour] = useState(watch.hour);
-    const [minutes, setMinutes] = useState(watch.minutes);
-    const [second, setSecond] = useState(watch.second);
+    const {watch, onClickDelete} = props;
+    const [time, setTime] = useState({hour: watch.hour, minutes: watch.minutes, second: watch.second});
 
     
     useEffect(() => {
         setTimeout(() => {
-            if (hour == 360) {
-                setHour(30);
+            if (time.second === 360 && time.minutes === 360 && time.hour === 360) {
+                setTime({...time, second: 6, minutes: 6, hour: 30});
+            } if (time.second === 360 && time.minutes === 360) {
+                setTime({...time, second: 6, minutes: 6, hour: time.hour + 30});
+            } else if (time.second === 360) {
+                setTime({...time, second: 6, minutes: time.minutes + 6});
+                console.log("minutes");
             } else {
-                setHour(hour + 30);
-            }
-        }, 3600000);
-    }, [hour]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            if (minutes == 360) {
-                setMinutes(6);
-            } else {
-                setMinutes(minutes + 6);
-            }
-        }, 60000);
-    }, [minutes]);
-    
-    useEffect(() => {
-        setTimeout(() => {
-            if (second == 360) {
-                setSecond(6);
-            } else {
-                setSecond(second + 6);
+                setTime({...time, second: time.second + 6});
+                console.log("second");
             }
         }, 1000);
-    }, [second]);
+    }, [time]);
     
     return (
       <div className="watch-container">
         <p>{watch.city}</p>
         <div className="watch">
             <div className="clockFace">
-                <div className="hour" style={{transform: `rotate(${hour}deg)`}}></div>
-                <div className="minutes" style={{transform: `rotate(${minutes}deg)`}}></div>
-                <div className="second" style={{transform: `rotate(${second}deg)`}}></div>
+                <div className="hour" style={{transform: `rotate(${time.hour}deg)`}}></div>
+                <div className="minutes" style={{transform: `rotate(${time.minutes}deg)`}}></div>
+                <div className="second" style={{transform: `rotate(${time.second}deg)`}}></div>
             </div>
-            <button id={watch.city} className="close" onClick={watch.close}>x</button>
+            <button id={watch.time} className="close" onClick={onClickDelete}>x</button>
         </div>
       </div>
     )

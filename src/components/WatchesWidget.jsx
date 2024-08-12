@@ -11,9 +11,6 @@ export default function WatchesWidget () {
         const {target} = event;
         const formData = new FormData(target);
         const data = Object.fromEntries(formData);
-        
-        // Не контролирую корректность водимых данных, что-то и так очень сложно(
-
         const date = new Date;
         const currentGreenwichHour = date.getHours() + date.getTimezoneOffset()/60;
         let splitHour = 0;
@@ -27,10 +24,10 @@ export default function WatchesWidget () {
 
         const watch = {
             city: data.city,
+            time: date.getTime(),
             hour: date.getHours() * 30,
             minutes: date.getMinutes() * 6,
             second: date.getSeconds() * 6,
-            close: deleteWatch,
         }
 
         watches.push(watch);
@@ -39,10 +36,10 @@ export default function WatchesWidget () {
         event.target[1].value = "";
     }
 
-    function deleteWatch(event) {
-        const city = event.target.id;
+    function onClickDelete(event) {
+        const time = event.target.id;
         const filteredWatches = watches.filter((item) => {
-            return (item.city !== city)
+            return (item.time.toString() !== time)
         })
         setWatches(filteredWatches);
     }
@@ -62,7 +59,7 @@ export default function WatchesWidget () {
             </form>
             <div className='watches-container'>
                 {watches.map((item, i) => (
-                    <Watch key={i} watch={item}/>
+                    <Watch key={i} watch={item} onClickDelete={onClickDelete}/>
                 ))}
             </div>
         </div>
